@@ -64,7 +64,7 @@ export function OrderRow({ order }: { order: OrderRecord }) {
       </td>
 
       <td className="py-4 text-center">
-        <div className="inline-flex items-center gap-2">
+        <div className="inline-flex flex-col items-center gap-1.5">
           <select
             value={currentStatus}
             disabled={isUpdating}
@@ -78,6 +78,15 @@ export function OrderRow({ order }: { order: OrderRecord }) {
             <option value="DELIVERED">DELIVERED</option>
             <option value="CANCELLED">CANCELLED</option>
           </select>
+          {currentStatus === "SHIPPED" && (
+            <input
+              type="text"
+              placeholder="Courier tracking #"
+              value={trackingNumber}
+              onChange={(e) => setTrackingNumber(e.target.value)}
+              className="text-[0.68rem] font-mono border hairline px-1.5 py-0.5 w-32 bg-white"
+            />
+          )}
           {msg && <span className="text-[0.65rem] text-emerald-800 font-mono">{msg}</span>}
         </div>
       </td>

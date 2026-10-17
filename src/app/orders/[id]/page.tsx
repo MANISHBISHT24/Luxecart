@@ -1,4 +1,4 @@
-import { Check, Clock, Package, PackageCheck, Truck, Wallet, AlertCircle } from "lucide-react";
+import { Check, Package, PackageCheck, Truck, Wallet } from "lucide-react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";

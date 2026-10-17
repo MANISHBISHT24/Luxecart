@@ -24,7 +24,6 @@ export async function POST(req: NextRequest) {
     }
 
     const { productId, rating, title, comment, authorName } = result.data;
-    const userId = session?.id || "usr_guest_" + Math.random().toString(36).slice(2, 8);
     const author = session?.name || authorName || "Verified Client";
 
     try {

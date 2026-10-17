@@ -70,7 +70,6 @@ function mapPrismaProduct(row: any): Product {
   const priceInPaise = Math.round(Number(row.price) * 100);
   const compareAtInPaise = row.compareAtPrice ? Math.round(Number(row.compareAtPrice) * 100) : undefined;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const reviews = row.reviews || [];
   const reviewCount = reviews.length;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

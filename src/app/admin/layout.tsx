@@ -1,13 +1,41 @@
 import Link from "next/link";
-import { ArrowLeft, Box, LayoutDashboard, Package, ShieldCheck, Tag, Warehouse } from "lucide-react";
+import { ArrowLeft, Box, LayoutDashboard, Package, ShieldCheck, ShieldAlert, Tag, Warehouse } from "lucide-react";
 import { getSession } from "@/lib/auth";
-import { Container } from "@/components/ui/layout";
 
 export const instant = false;
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const session = await getSession();
-  const isAdmin = session?.role === "ADMIN";
+
+  if (!session || session.role !== "ADMIN") {
+    return (
+      <div className="min-h-screen bg-[#F5F2EB] flex flex-col items-center justify-center p-6 text-center">
+        <div className="max-w-md w-full bg-white border hairline p-8 space-y-6">
+          <ShieldAlert className="h-10 w-10 text-amber-700 mx-auto stroke-[1.4]" />
+          <div>
+            <h1 className="text-3xl font-display text-charcoal">Restricted Portal</h1>
+            <p className="text-sm text-ink-soft mt-2">
+              The LuxeCart Operations Management system requires verified administrator privileges.
+            </p>
+          </div>
+          <div className="pt-2 flex flex-col gap-3">
+            <Link
+              href="/login"
+              className="bg-charcoal text-ivory text-xs uppercase tracking-wider py-3 px-6 hover:bg-charcoal/90 transition-colors"
+            >
+              Sign In as Administrator
+            </Link>
+            <Link
+              href="/"
+              className="border hairline text-charcoal text-xs uppercase tracking-wider py-3 px-6 hover:bg-beige transition-colors"
+            >
+              Return to Storefront
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#F5F2EB] text-charcoal">

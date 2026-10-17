@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { getProductBySlug, getProductById } from "@/lib/catalog/queries";
+import { getProductById } from "@/lib/catalog/queries";
 import type { Variant } from "@/lib/catalog/types";
 import { computeTotals } from "@/lib/pricing";
 
@@ -28,7 +28,6 @@ export async function POST(req: NextRequest) {
 
     const { items } = parsed.data;
     const validatedItems = [];
-    let subtotalPaise = 0;
     const warnings: string[] = [];
 
     for (const item of items) {
@@ -59,7 +58,6 @@ export async function POST(req: NextRequest) {
 
       const unitPricePaise = variant.price ?? product.price;
       const lineTotalPaise = unitPricePaise * effectiveQty;
-      subtotalPaise += lineTotalPaise;
 
       validatedItems.push({
         productId: product.id,

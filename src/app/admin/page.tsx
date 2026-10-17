@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowUpRight, DollarSign, Package, ShoppingBag, TrendingUp, AlertTriangle } from "lucide-react";
+import { DollarSign, Package, ShoppingBag, TrendingUp, AlertTriangle } from "lucide-react";
 import { listAllOrders } from "@/lib/orders";
 import { fallbackProducts } from "@/lib/catalog/data";
 import type { Product, Variant } from "@/lib/catalog/types";

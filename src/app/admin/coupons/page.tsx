@@ -1,4 +1,4 @@
-import { Tag, Plus, CheckCircle2 } from "lucide-react";
+import { Plus } from "lucide-react";
 import { formatMoney } from "@/lib/utils";
 
 export const metadata = {

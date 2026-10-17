@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowUpRight, Package, ShieldCheck, UserCheck, Heart, MapPin } from "lucide-react";
+import { ArrowUpRight, Package, ShieldCheck, Heart, MapPin } from "lucide-react";
 import { getSession } from "@/lib/auth";
 import { listOrdersByUser, listAllOrders } from "@/lib/orders";
 import { ButtonLink } from "@/components/ui/button";

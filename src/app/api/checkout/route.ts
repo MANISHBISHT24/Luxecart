@@ -4,6 +4,7 @@ import { getSession } from "@/lib/auth";
 import { getProductById, getProductBySlug } from "@/lib/catalog/queries";
 import type { Variant } from "@/lib/catalog/types";
 import { createOrder } from "@/lib/orders";
+import { shippingCost, GST_RATE } from "@/lib/pricing";
 
 const checkoutSchema = z.object({
   shippingAddress: z.object({
@@ -91,16 +92,11 @@ export async function POST(req: NextRequest) {
 
     // Shipping calculation
     const discountedSubtotal = Math.max(0, subtotalPaise - discountPaise);
-    let shippingPaise = 0;
-    if (shippingMethod === "express") {
-      shippingPaise = 150_000; // ₹1,500
-    } else {
-      shippingPaise = discountedSubtotal >= 500_000 ? 0 : 25_000; // Free over ₹5,000 else ₹250
-    }
+    const shippingPaise = shippingCost(discountedSubtotal, shippingMethod);
 
-    // 18% GST calculation
-    const taxPaise = Math.round((discountedSubtotal + shippingPaise) * 0.18);
-    const totalPaise = discountedSubtotal + shippingPaise + taxPaise;
+    // 18% GST is included in retail catalog prices
+    const taxPaise = Math.round((discountedSubtotal * GST_RATE) / (1 + GST_RATE));
+    const totalPaise = discountedSubtotal + shippingPaise;
 
     // Create the order record
     const order = await createOrder({
